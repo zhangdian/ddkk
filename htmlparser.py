@@ -1,26 +1,42 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 #
+# BeautifulSoup doc list:
+# http://rsj217.diandian.com/post/2012-11-01/40041235132
+# http://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html#Iterating%20over%20a%20Tag
+# http://www.crummy.com/software/BeautifulSoup/bs3/documentation.html
 
-from HTMLParser import HTMLParser
+#from HTMLParser import HTMLParser
+from BeautifulSoup import BeautifulSoup           # HTML
+import re
+from link_img_obj import *
 
-class DDHTMLParser(HTMLParser):
+class DDHTMLParser():
 
     def __init__(self):
-        HTMLParser.__init__(self)
-        self._flag = False
-        self._data = ""
-
-    def handle_starttag(self, tag, attrs):
-        if 'a' == tag:
-            self._flag = True
-        elif 'img' == tag and self._flag == True:
-            self._data = self.get_starttag_text()
-    def handle_endtag(self, tag):
-        if 'a' == tag and self._flag == True:
-            print self._data
-            self._data = ""
-            self._flag = False
-    def handle_data(self, data):
+        self._soup = None
         pass
+
+    def parse_html(self, html):
+        self._soup = BeautifulSoup(html)
+
+    def list_img(self):
+        return self._soup.findAll('img')
+
+    def list_a(self):
+        return self._soup.findAll('a')
+
+    def list_a_with_img(self):
+        link_imgs = []
+        for a in self.list_a():
+            try:
+                if a['href'] and a.img and a.img['src']:
+                    t = LinkImgObj()
+                    t.set_href(a['href'])
+                    t.set_imgsrc(a.img['src'])
+                    link_imgs.append(t)
+            except Exception,e:
+                pass
+        return link_imgs
+            
 
