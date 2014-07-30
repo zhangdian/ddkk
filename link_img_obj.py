@@ -7,6 +7,7 @@ class LinkImgObj():
     def __init__(self):
         self._href = ""
         self._imgsrc = ""
+        self._phref = ""
         pass
 
     def set_href(self, href):
@@ -21,4 +22,8 @@ class LinkImgObj():
     def get_imgsrc(self):
         return self._imgsrc
 
+    def set_phref(self, phref):
+        self._phref = phref
 
+    def get_phref(self):
+        return self._phref

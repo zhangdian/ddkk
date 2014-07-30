@@ -20,6 +20,8 @@ class URLParser():
         self._port = ""
     def parse(self, url):
         o = urlparse(url)
+        print url
+        print o
         if o:
             self._scheme = o.scheme
             self._netloc = o.netloc

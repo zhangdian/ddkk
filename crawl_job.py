@@ -12,33 +12,47 @@ from imageparser import *
 
 class CrawlJob():
 
-    def __init__(self, linkdepth, url):
+    def __init__(self, linkobj):
         self._jobname = "crawl_job_%s" % uuid.uuid1()
-        self._linkdepth = linkdepth + 1
-        self._url = url
+        self._linkobj = linkobj
 
-    def exec(self):
-        links = [] # all links to analyze
-
+    def start(self):
         # parse url, fetch html, parse urls
-        parser = URLParser()
-        parser.parse(url)
+        urlparser = URLParser()
+        urlparser.parse(self._linkobj.get_href())
 
-        if parser.get_hostname():
-            httpinst = Http(parser.get_hostname(), parser.get_port())
-            # TODO
+        if urlparser.get_hostname():
+            httpinst = Http(urlparser.get_hostname(), urlparser.get_port())
+            resp = httpinst.do(urlparser.get_path(), 'GET')
+            
+            htmlparser = DDHTMLParser()
+            htmlparser.parse_html(resp[2])
 
-
-        # parse img url, fetch images
-        if parser.get_hostname():
-           httpinst = Http(parser.get_hostname(), parser.get_port())
-           resp = httpinst.do(parser.get_path(). 'GET')
-           try:
-               imgparser = ImageParser(resp[2])
-               if imgparser.get_horizontal_size() >= 400 and imgparser.get_vertical_size >= 200:
-                   imgparser.save()
-            except Exception, e:
+            links = htmlparser.list_links()
+            for l in links:
+                # TODO: 添加新的任务 LinkObj
                 pass
+
+            imglinkobjs = htmlparser.list_a_with_img()
+            for l in imglinkobjs:
+                '''
+                遍历每个图片链接
+                '''
+                l.set_phref = self._linkobj.get_href()
+                
+                _urlparser = URLParser()
+                _urlparser.parse(l.get_imgsrc())
+
+                # parse img url, fetch images
+                if _urlparser.get_hostname():
+                   _httpinst = Http(_urlparser.get_hostname(), _urlparser.get_port())
+                   resp = _httpinst.do(_urlparser.get_path(), 'GET')
+                   try:
+                       _imgparser = ImageParser(resp[2])
+                       if _imgparser.get_horizontal_size() >= 400 and _imgparser.get_vertical_size >= 200:
+                           _imgparser.save()
+                   except Exception, e:
+                       pass
 
     
 

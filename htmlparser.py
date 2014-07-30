@@ -39,4 +39,15 @@ class DDHTMLParser():
                 pass
         return link_imgs
             
-
+    def list_links(self):
+        '''
+        list href in a
+        '''
+        links = []
+        for l in self.list_a():
+            try:
+                if l['href']:
+                    links.append(l['href'])
+            except Exception,e:
+                pass
+        return links
