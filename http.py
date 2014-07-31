@@ -3,6 +3,7 @@
 #
 import httplib
 
+
 class Http:
 
     def __init__(self, host, port):
@@ -17,13 +18,13 @@ class Http:
         try:
             conn.request(method, path)
             resp = conn.getresponse()
-        except Exception,e :
+        except Exception as e:
             pass
         if resp is not None:
             self._status = resp.status
             self._reason = resp.reason
             try:
                 self._data = resp.read()
-            except Exception,e:
+            except Exception as e:
                 pass
         return [self._status, self._reason, self._data]

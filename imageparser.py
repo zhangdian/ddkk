@@ -11,6 +11,7 @@ import uuid
 
 IMG_PATH = "/opt/images/"
 
+
 class ImageParser():
 
     def __init__(self, data):
@@ -19,12 +20,12 @@ class ImageParser():
         self._path = "%s_%s" % (str(time.time()), uuid.uuid1())
 
     def save(self):
-        try :
+        try:
             f = open("%s%s" % (IMG_PATH, self._path), 'w')
             f.write(self._data)
             f.flush()
             f.close()
-        except Exception,e :
+        except Exception as e:
             pass
 
     def get_size(self):

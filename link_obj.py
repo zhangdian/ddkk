@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 
+
 class LinkObj():
 
     def __init__(self, href, phref, depth):
@@ -27,5 +28,3 @@ class LinkObj():
 
     def set_depth(self, depth):
         self._depth = depth
-
-

@@ -8,8 +8,9 @@
 
 #from HTMLParser import HTMLParser
 from BeautifulSoup import BeautifulSoup           # HTML
-import re
+
 from link_img_obj import *
+
 
 class DDHTMLParser():
 
@@ -35,10 +36,10 @@ class DDHTMLParser():
                     t.set_href(a['href'])
                     t.set_imgsrc(a.img['src'])
                     link_imgs.append(t)
-            except Exception,e:
+            except Exception as e:
                 pass
         return link_imgs
-            
+
     def list_links(self):
         '''
         list href in a
@@ -48,6 +49,6 @@ class DDHTMLParser():
             try:
                 if l['href']:
                     links.append(l['href'])
-            except Exception,e:
+            except Exception as e:
                 pass
         return links

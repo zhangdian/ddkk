@@ -14,20 +14,20 @@ from link_obj import *
 
 #inst = Http("news.163.com", 80)
 #resp = inst.do("/", "GET")
-#print resp[0]
-#print resp[1]
+# print resp[0]
+# print resp[1]
 #
 #data = resp[2]
 #
-## http://rsj217.diandian.com/post/2012-11-01/40041235132
-## 决定用BeautifulSoup 
+# http://rsj217.diandian.com/post/2012-11-01/40041235132
+# 决定用BeautifulSoup
 #
 #parser = DDHTMLParser()
-#parser.parse_html(data)
+# parser.parse_html(data)
 #
 #l = parser.list_a_with_img()
 #
-#for a in l:
+# for a in l:
 #    img_src = a.get_imgsrc()
 #    parser = URLParser()
 #    parser.parse(img_src)
@@ -43,7 +43,7 @@ from link_obj import *
 #                print "%s, %s, %s" % (imgparser.get_filename(), imgparser.get_horizontal_size(), imgparser.get_vertical_size())
 #        except Exception,e:
 #            pass
-        
+
 link_obj = LinkObj("http://news.163.com/", "", 0)
 crawl_obj = CrawlJob(link_obj)
 crawl_obj.start()
