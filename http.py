@@ -22,5 +22,8 @@ class Http:
         if resp is not None:
             self._status = resp.status
             self._reason = resp.reason
-            self._data = resp.read()
+            try:
+                self._data = resp.read()
+            except Exception,e:
+                pass
         return [self._status, self._reason, self._data]
