@@ -12,9 +12,15 @@ class Http:
     def do(self, path, method):
         conn = httplib.HTTPConnection(self._host, self._port)
         # conn.set_debuglevel(3)
-        conn.request(method, path)
-        resp = conn.getresponse()
-        self._status = resp.status
-        self._reason = resp.reason
-        self._data = resp.read()
+
+        resp = None
+        try:
+            conn.request(method, path)
+            resp = conn.getresponse()
+        except Exception,e :
+            pass
+        if resp is not None:
+            self._status = resp.status
+            self._reason = resp.reason
+            self._data = resp.read()
         return [self._status, self._reason, self._data]

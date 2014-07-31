@@ -44,6 +44,6 @@ from link_obj import *
 #        except Exception,e:
 #            pass
         
-link_obj = LinkObj("http://www.iqbbs.com/", "", 0)
+link_obj = LinkObj("http://news.163.com/", "", 0)
 crawl_obj = CrawlJob(link_obj)
 crawl_obj.start()
